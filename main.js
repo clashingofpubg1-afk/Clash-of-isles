@@ -165,7 +165,11 @@ function bindUI(){
 
   // overlay unlock touch
   const overlay = document.getElementById('startOverlay');
-  overlay.addEventListener('pointerdown', (e)=>{ e.preventDefault(); unlockInteraction(); }, {passive:false});
+  overlay.addEventListener('click', (e)=>{
+  e.preventDefault();
+  // short timeout helps mobile browsers register the gesture reliably
+  setTimeout(()=>{ unlockInteraction(); }, 100);
+}, {passive:false});
 }
 
 // unlock interaction handler
