@@ -4,18 +4,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Clash of Isles — Prototype</title>
+  <title>Clash of Isles — Prototype (Audio Unlock)</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="titleScreen" class="overlay">
+  <!-- Tap-to-start overlay (mobile-friendly audio unlock) -->
+  <div id="startOverlay" class="start-overlay">
+    <div class="start-card">
+      <h1>Tap to begin</h1>
+      <p>Tap anywhere to enable audio & controls</p>
+      <div class="hint">Clash of Isles — prototype</div>
+    </div>
+  </div>
+
+  <div id="titleScreen" class="overlay hidden">
     <div class="titleCard">
       <h1 id="gameTitle">Clash of Isles</h1>
       <p class="subtitle">A tactical island base-builder — prototype</p>
       <div class="buttons">
-        <button id="startBtn">Start Game</button>
-        <button id="loadBtn">Load Save</button>
-        <button id="howBtn">How to Play</button>
+        <button id="startBtn" disabled>Start Game</button>
+        <button id="loadBtn" disabled>Load Save</button>
+        <button id="howBtn" disabled>How to Play</button>
       </div>
       <div class="small">Calm island theme — Local prototype. Built-in audio synth.</div>
     </div>
@@ -56,9 +65,9 @@
       <div id="instructions">
         <strong>Instructions:</strong>
         <ul>
-          <li>Click island to place selected building.</li>
-          <li>Click an existing building to upgrade (cost increases each level).</li>
-          <li>Press <em>Start Raid</em> to enter a 20s mini-raid (click to deploy squads).</li>
+          <li>Tap the island to place selected building.</li>
+          <li>Tap an existing building to upgrade (cost increases each level).</li>
+          <li>Press <em>Start Raid</em> to enter a 20s mini-raid (tap to deploy squads).</li>
           <li>Save will store progress to localStorage.</li>
         </ul>
       </div>

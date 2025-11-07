@@ -1,15 +1,9 @@
 
-/* main.js - Clash of Isles Enhanced Prototype 
-Features:
-- Title screen + calm island synth theme
-- 3D island with building placement & upgrades
-- Resource generation (timber) and per-second rate
-- Tide cycles Low/Mid/High (visual water level)
-- Mini Raid: 20s mode; click to deploy squads and earn resources
-- Local save/load via localStorage
+/* main.js - Clash of Isles Enhanced Prototype (audio-unlock)
+Adds a "tap to begin" overlay that unlocks WebAudio and UI interactions on mobile.
 */
 
-// Globals
+// Globals (same as before, with unlocked flag)
 let scene, camera, renderer, controls;
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
@@ -25,11 +19,13 @@ let raidEndTime = 0;
 let raidScore = 0;
 let uiEls = {};
 const SAVE_KEY = 'clash_of_isles_save_v1';
+let unlocked = false; // interaction unlocked flag
 
 // Audio (calm synth via WebAudio)
 const AudioEngine = {
   ctx: null, masterGain: null, seq: null,
   init: function(){
+    if(this.ctx) return;
     try{
       this.ctx = new (window.AudioContext || window.webkitAudioContext)();
       this.masterGain = this.ctx.createGain();
@@ -64,12 +60,12 @@ const AudioEngine = {
   }
 };
 
-// Tide Manager
+// Tide Manager (same)
 const TideManager = {
   states: ['Low','Mid','High'],
   currentIndex: 0,
   current: 'Low',
-  cycleSeconds: 40, // 40s cycle for demo
+  cycleSeconds: 40,
   init: function(){
     this.currentIndex = 0; this.current = this.states[0];
     setInterval(()=>{ this.next(); }, this.cycleSeconds*1000);
@@ -145,7 +141,8 @@ function init(){
   updateUI();
 
   // start audio engine on first user gesture due to browser autoplay policies
-  window.addEventListener('pointerdown', ()=>{ AudioEngine.init(); }, {once:true});
+  // moved to explicit unlock handler
+  // window.addEventListener('pointerdown', ()=>{ AudioEngine.init(); }, {once:true});
 }
 
 // UI binding
@@ -165,10 +162,31 @@ function bindUI(){
   document.getElementById('attackBtn').addEventListener('click', ()=>{ startRaid(); });
   document.getElementById('settingsBtn').addEventListener('click', ()=>{ alert('Settings placeholder'); });
   window.addEventListener('keydown', (e)=>{ if(e.key==='r' || e.key==='R') removeLastBuilding(); });
+
+  // overlay unlock touch
+  const overlay = document.getElementById('startOverlay');
+  overlay.addEventListener('pointerdown', (e)=>{ e.preventDefault(); unlockInteraction(); }, {passive:false});
+}
+
+// unlock interaction handler
+function unlockInteraction(){
+  if(unlocked) return;
+  unlocked = true;
+  // init audio
+  AudioEngine.init();
+  // hide overlay and show title UI
+  const overlay = document.getElementById('startOverlay');
+  overlay.classList.add('hidden');
+  document.getElementById('titleScreen').classList.remove('hidden');
+  // enable main title buttons
+  document.getElementById('startBtn').disabled = false;
+  document.getElementById('loadBtn').disabled = false;
+  document.getElementById('howBtn').disabled = false;
 }
 
 // pointer down
 function onPointerDown(e){
+  if(!unlocked) return; // ignore until unlocked
   if(isRaidActive){
     // deploy squad click (increase raid score and tiny reward)
     raidScore += 1;
@@ -351,25 +369,6 @@ function openGame(){
     updateUI();
   }, 1000);
   recalcRates();
-}
-
-// pointer handling already added
-function onWindowResize(){
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-// animate loop
-function animate(){
-  requestAnimationFrame(animate);
-  // bob buildings / simple animation
-  for(let b of buildings){
-    b.rotation.y += 0.002 + (b.userData.level*0.001);
-  }
-  TideManager.updateVisual(water);
-  controls.update();
-  renderer.render(scene, camera);
 }
 
 // modal
