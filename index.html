@@ -88,5 +88,28 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/examples/js/controls/OrbitControls.js"></script>
   <script src="main.js"></script>
+  <!-- TEMP: bypass tap-overlay and enable title buttons (audio will be off) -->
+<script>
+  try{
+    // hide overlay if present
+    const so = document.getElementById('startOverlay');
+    if(so) so.classList.add('hidden');
+
+    // show title screen if hidden
+    const ts = document.getElementById('titleScreen');
+    if(ts) ts.classList.remove('hidden');
+
+    // enable title buttons
+    const b1 = document.getElementById('startBtn');
+    const b2 = document.getElementById('loadBtn');
+    const b3 = document.getElementById('howBtn');
+    if(b1) b1.disabled = false;
+    if(b2) b2.disabled = false;
+    if(b3) b3.disabled = false;
+
+    // also ensure UI can be opened if start clicked
+    console.log('Temp bypass applied');
+  }catch(e){ console.log('bypass err', e); }
+</script>
 </body>
 </html>
