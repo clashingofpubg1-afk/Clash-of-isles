@@ -1,0 +1,83 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Clash of Isles — Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="titleScreen" class="overlay">
+    <div class="titleCard">
+      <h1 id="gameTitle">Clash of Isles</h1>
+      <p class="subtitle">A tactical island base-builder — prototype</p>
+      <div class="buttons">
+        <button id="startBtn">Start Game</button>
+        <button id="loadBtn">Load Save</button>
+        <button id="howBtn">How to Play</button>
+      </div>
+      <div class="small">Calm island theme — Local prototype. Built-in audio synth.</div>
+    </div>
+  </div>
+
+  <div id="ui" class="hidden">
+    <div id="topbar">
+      <div class="left">
+        <div class="logo">Clash of Isles</div>
+      </div>
+      <div class="center">
+        <div>Resources: <span id="resCount">0</span></div>
+        <div>Timber/sec: <span id="resRate">0</span></div>
+        <div>Tide: <span id="tideState">Low</span></div>
+      </div>
+      <div class="right">
+        <button id="saveBtn">Save</button>
+        <button id="attackBtn">Start Raid</button>
+        <button id="settingsBtn">Settings</button>
+      </div>
+    </div>
+
+    <div id="canvas"></div>
+
+    <div id="sidebar">
+      <h3>Build Menu</h3>
+      <div class="buildItem" data-type="hut" data-cost="10">
+        <div class="bi-title">Hut</div>
+        <div>Cost: 10 Timber</div>
+        <div class="bi-desc">Small house — small production</div>
+      </div>
+      <div class="buildItem" data-type="mill" data-cost="30">
+        <div class="bi-title">Mill</div>
+        <div>Cost: 30 Timber</div>
+        <div class="bi-desc">Increases timber/sec</div>
+      </div>
+      <hr/>
+      <div id="instructions">
+        <strong>Instructions:</strong>
+        <ul>
+          <li>Click island to place selected building.</li>
+          <li>Click an existing building to upgrade (cost increases each level).</li>
+          <li>Press <em>Start Raid</em> to enter a 20s mini-raid (click to deploy squads).</li>
+          <li>Save will store progress to localStorage.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal" class="overlay hidden">
+    <div class="modalCard" id="modalCard">
+      <h2 id="modalTitle">How to Play</h2>
+      <div id="modalBody"></div>
+      <div class="buttons">
+        <button id="closeModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

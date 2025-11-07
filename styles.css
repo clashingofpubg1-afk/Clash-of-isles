@@ -1,0 +1,21 @@
+
+/* styles.css - Clash of Isles prototype */
+html,body{height:100%;margin:0;font-family:Inter, Arial, Helvetica, sans-serif;background:#081226;color:#e6f0ff;}
+#canvas{width:100%;height:calc(100% - 64px);display:block;}
+#topbar{height:64px;display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:linear-gradient(90deg, rgba(0,0,0,0.4), rgba(0,20,40,0.4));backdrop-filter:blur(4px);}
+#topbar .center{display:flex;gap:18px;font-weight:600;}
+#topbar .right button{margin-left:8px;padding:8px 12px;border-radius:6px;border:0;background:#1e90ff;color:white;cursor:pointer;}
+#sidebar{position:absolute;right:12px;top:84px;width:260px;background:rgba(2,10,20,0.6);padding:12px;border-radius:8px;backdrop-filter:blur(4px);}
+.buildItem{padding:8px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));margin-bottom:8px;border-radius:6px;cursor:pointer;border:1px solid rgba(255,255,255,0.02);}
+.buildItem:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,0.4);}
+.overlay{position:fixed;left:0;top:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;z-index:20;background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.7));}
+.titleCard{background:linear-gradient(180deg,#0e2540,#042033);padding:24px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);min-width:300px;text-align:center;}
+.titleCard h1{font-size:32px;margin:0 0 6px 0;color:#bfefff;letter-spacing:1px;}
+.titleCard .subtitle{opacity:0.9;margin:6px 0 12px 0;}
+.titleCard .buttons{display:flex;gap:8px;justify-content:center;margin-bottom:8px;}
+.titleCard button{padding:10px 16px;border-radius:8px;border:0;background:#1e90ff;color:white;cursor:pointer;}
+.hidden{display:none;}
+#ui .logo{font-weight:800;color:#bfefff;}
+.modalCard{background:#071424;padding:16px;border-radius:8px;min-width:320px;max-width:640px;}
+.small{font-size:12px;opacity:0.8;margin-top:8px;}
+#footer{position:fixed;left:12px;bottom:12px;font-size:12px;color:rgba(255,255,255,0.6);}
